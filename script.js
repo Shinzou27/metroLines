@@ -88,12 +88,12 @@ const la = new LinearAlgebra();
 const div = document.getElementById('results')
 
 //Debug        1  2  3  4  5  6
-const test = [[1, 0, 0, 0, 1, 0], 
-              [0, 1, 0, 1, 1, 1], 
-              [0, 0, 0, 0, 1, 0], 
-              [0, 1, 0, 1, 0, 0], 
-              [1, 1, 1, 0, 1, 0], 
-              [0, 1, 0, 0, 0, 1],]
+const test = [[1, 1, 0, 0, 0, 0], 
+              [0, 1, 1, 0, 0, 0], 
+              [1, 0, 1, 1, 1, 0], 
+              [0, 0, 0, 1, 1, 0], 
+              [0, 0, 0, 0, 1, 1], 
+              [0, 0, 0, 0, 0, 1],]
 
 console.log(isSymmetric(test))
 writeMatrix(test)
