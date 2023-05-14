@@ -20,6 +20,7 @@ body {
     width: 500px;
 }
 
+
 #calc {
     background-color: #2b2b2b;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -62,6 +63,12 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#results ul {
+    list-style-type: none;
+    font-size: 0.6em;
+    opacity: 50%;
 }
 
 #matrix {
