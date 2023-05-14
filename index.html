@@ -11,6 +11,7 @@
     <div id="outerDiv">
         <div id="inputs">
             <h6>Insira os dados da Matriz-Relação</h6>
+
             <p id="matrixSizeLabel">Ordem: 1</p>
             <input type="range" value="1" min="1" max="10" id="matrixSize">
             <div id="matrixCreator">
@@ -19,7 +20,19 @@
             <button id="calc">Calcular</button>
         </div>
         <div id="results">
-            <p>Aguardando uma matriz para calcular...</p>
+            <div>
+                <p>Aguardando uma matriz para calcular...</p>
+                <ul>
+                    Lembrete:
+                    <li>Linha 1 - Estação Avenida</li>
+                    <li>Linha 2 - Estação Centro</li>
+                    <li>Linha 3 - Estação Praça</li>
+                    <li>Linha 4 - Estação Parque</li>
+                    <li>Linha 5 - Estação Shopping</li>
+                    <li>Linha 6 - Estação Terminal</li>
+                </ul>
+            </div>
+            
         </div>
     </div>
     <script src="script.js" type="module"></script>
