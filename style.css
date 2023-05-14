@@ -5,11 +5,69 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
 }
+#outerDiv {
+    display: flex;
+}
+#inputs {
+    width: 700px;
+    height: 840px;
+    padding: 0 1em;
+    border: 5px solid #7498b7;
+    border-radius: 15px;
+    margin: auto;
+}
+#inputs input {
+    width: 500px;
+}
+
+#calc {
+    background-color: #2b2b2b;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 200px;
+    height: 40px;
+    font-size: 21px;
+    cursor: pointer;
+    border-color: #7498b7;
+    border-radius: 5px;
+    color: white;
+}
+#calc:hover {
+    transition: 0.5s;
+    background-color: #6db6bd;
+}
+
+#matrixCreator input {
+    width: 35px;
+    height: 35px;
+    border: 2px solid lightgrey;
+    margin: 5px;
+    background-color: #2b2b2b;
+    font-size: 1em;
+    color: white;
+    text-align: center;
+}
+#matrixCreator input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 #results {
     padding: 0 5em;
     border: 5px solid #7498b7;
     border-radius: 15px;
     margin: auto;
+    width: 700px;
+    height: 840px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#matrix {
     width: fit-content;
+    margin: auto;
+    padding-left: 15px;
+    border-right: 1px solid #f0f8ff;
+    border-left: 1px solid #f0f8ff;
 }
