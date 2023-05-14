@@ -8,7 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="results"></div>
+    <div id="outerDiv">
+        <div id="inputs">
+            <h6>Insira os dados da Matriz-Relação</h6>
+            <p id="matrixSizeLabel">Ordem: 1</p>
+            <input type="range" value="1" min="1" max="10" id="matrixSize">
+            <div id="matrixCreator">
+                <input type="number">
+            </div>
+            <button id="calc">Calcular</button>
+        </div>
+        <div id="results">
+            <p>Aguardando uma matriz para calcular...</p>
+        </div>
+    </div>
     <script src="script.js" type="module"></script>
 </body>
 </html>
