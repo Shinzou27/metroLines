@@ -12,131 +12,122 @@ Assimetria: a matriz de adjacência não terá nenhum elemento da diagonal princ
 
 Antissimetria: se um elemento Mij = 1, então Mji = 0.para i ≠ j.
 
-Transitividade: dada uma matriz A, se a posição (i,j) e a posição (j,k) são iguais a 1, então a posição (i,k) também deve ser igual a 1.
 */
 
 
 
 class LinearAlgebra {
-
     transpose(a) {
-        var matrizTransposta = [];
-        for (var m = 0; m < a[0].length; m++) {
+        let matrizTransposta = [];
+        for (let m = 0; m < a[0].length; m++) {
             matrizTransposta[m] = [];
-            for (var n = 0; n < a.length; n++) {
+            for (let n = 0; n < a.length; n++) {
                 matrizTransposta[m][n] = a[n][m];
             }
         }
-        return matrizTransposta
-    }
-
-    sum(a, b) {
-        var matrizSoma = [];
-        for (var m = 0; m < a.length; m++) {
-            matrizSoma[m] = [];
-            for (var n = 0; n < a[0].length; n++) {
-                matrizSoma[m][n] = a[m][n] + b[m][n];
-            }
-        }
-        return matrizSoma
-    }
-
-    times(a, b) {
-        var soma = 0;
-        var matrizTimes = [];                               //   a   *   b   =   X
-        if (!isNaN(a)){
-            for (var n = 0; n < b.length; n++) {            // m x n   n x p   m x p
-                matrizTimes[n] = [];
-                for (var p = 0; p < b[0].length; p++) {
-                    matrizTimes[n][p] = b[n][p] * a;
-                }
-            } 
-        }
-        else {
-            for (var m = 0; m < a.length; m++) {
-                matrizTimes[m] = [];
-                for (var p = 0; p < b[0].length; p++) {
-                    for (var i = 0; i < b.length; i++) {
-                        soma += a[m][i] * b[i][p]; 
-                    }
-                    matrizTimes[m][p] = soma;
-                    soma = 0;
-                }
-            }
-        }
-        return matrizTimes;
-    }
-
-    dot(a, b) {
-        var soma = 0;
-        var matrizDot = [];                               //   a   *   b   =   X
-        for (var m = 0; m < a.length; m++) {                // m x n   n x p   m x p
-            matrizDot[m] = [];
-            for (var p = 0; p < b[0].length; p++) {
-                for (var i = 0; i < b.length; i++) {
-                    soma += a[m][i] * b[i][p]; 
-                }
-                matrizDot[m][p] = soma;
-                soma = 0;
-            }
-        }
-        return matrizDot;        
+        return matrizTransposta;
     }
 }
 
 const la = new LinearAlgebra();
-const div = document.getElementById('results')
+const inputs = document.getElementById('inputs');
+const div = document.getElementById('results');
+const matrixSize = document.getElementById('matrixSize');
+const matrixCreator = document.getElementById('matrixCreator');
+const button = document.getElementById('calc');
 
-//Debug        1  2  3  4  5  6
-const test = [[1, 1, 0, 0, 0, 0], 
-              [0, 1, 1, 0, 0, 0], 
-              [1, 0, 1, 1, 1, 0], 
-              [0, 0, 0, 1, 1, 0], 
-              [0, 0, 0, 0, 1, 1], 
-              [0, 0, 0, 0, 0, 1],]
+matrixSize.addEventListener("input", () => {
+    const p = document.getElementById("matrixSizeLabel");
+    p.innerText = "Ordem: " + matrixSize.value;
+    createInputs(matrixSize.value);
+});
+button.addEventListener("click", () => {
+    const matrix = [];
+    matrixCreator.childNodes.forEach((innerDiv) => {
+        const row = [];
+        innerDiv.childNodes.forEach((input) => {
+            row.push(parseInt(input.value));
+        });
+        matrix.push(row);
+    })
+    showResults(matrix);
+});
+function createInputs(rows) {
+    matrixCreator.innerHTML = "";
+    for (let i = 0; i < rows; i++) {
+        const innerDiv = document.createElement('div');
+        const rowColor = generateRandomColor();
+        for (let k = 0; k < rows; k++) {
+            const input = document.createElement('input');
+            input.type = "number";
+            input.style.borderColor = rowColor;
+            innerDiv.appendChild(input);
+        }
+        matrixCreator.appendChild(innerDiv);
+    }
+}
 
-console.log(isSymmetric(test))
-writeMatrix(test)
-writeResults([
-    false,
-    isSymmetric(test),
-    true,
-    true,
-    false
+//Debug          1  2  3  4  5  6
+const test =   [[1, 1, 0, 0, 0, 0],
+                [0, 1, 1, 0, 0, 0],
+                [1, 0, 1, 1, 1, 0],
+                [0, 0, 0, 1, 1, 0],
+                [0, 0, 0, 0, 1, 1],
+                [0, 0, 0, 0, 0, 1],];
+
+function showResults(matrix) {
+    writeMatrix(matrix)
+    writeResults([
+        isReflexive(matrix),
+        isSymmetric(matrix),
+        isAsymmetric(matrix),
+        isAntiSymmetric(matrix)
     ]);
+}
 
 
-//Funções para escrever no documento
+//Funções relacionadas ao HTML
+function generateRandomColor() {
+    return "#" + Math.floor(Math.random()*16777215).toString(16);
+}
+
 function writeResults(results) {
-    const classifications = [" reflexiva.", " simétrica.", " assimétrica.", " anti-simétrica.", " transitiva."]
+    const classifications = [" reflexiva", " simétrica", " assimétrica", " anti-simétrica"]
     results.forEach(value => {
         const p = document.createElement('p');
-        p.innerText = "A relação " + (value ? "É" : "NÃO É") + classifications.shift();
+        p.innerText = "A relação " + (value ? "É" : "NÃO É") + classifications.shift() + ".";
         div.appendChild(p);
     });
 }
-
 function writeMatrix(matrix) {
+    div.innerHTML = "";
+    div.style.display = 'block';
+    const title = document.createElement('h6');
     const matrixDocument = document.createElement('h6');
-    matrixDocument.innerHTML = "MATRIZ ORIGINAL:<br><br>"
-    for(let i = 0; i < matrix.length; i++) {
-        for(let j = 0; j < matrix[i].length; j++) {
-            matrixDocument.innerHTML += matrix[i][j] + "\t";
+    matrixDocument.id = 'matrix';
+    title.innerHTML = "MATRIZ ORIGINAL:<br><br>";
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            matrixDocument.innerHTML += matrix[i][j] + "&nbsp;&nbsp;";
         }
-        matrixDocument.innerHTML += '<br>'
+        matrixDocument.innerHTML += '<br>';
     }
-    div.appendChild(matrixDocument)
+    div.appendChild(title);
+    div.appendChild(matrixDocument);
 }
 
 //Funções para implementar
 function isReflexive(matrix) {
-    
+    for (let i = 0; i < matrix.length; i++) {
+        if (matrix[i][i] != 1) return false;
+    }
+    return true;
 }
 
 function isSymmetric(matrix) {
     const transpose = la.transpose(matrix)
-    for(let i = 0; i < matrix.length; i++) {
-        for(let j = 0; j < matrix[i].length; j++) {
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
             if (matrix[i][j] != transpose[i][j]) {
                 return false;
             }
@@ -146,13 +137,20 @@ function isSymmetric(matrix) {
 }
 
 function isAsymmetric(matrix) {
-    
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix.length; j++) {
+            if (matrix[i][i] != 0) return false;
+            if (i != j && matrix[i][j] == 1 && matrix[j][i] == 1) return false;
+        }
+    }
+    return true;
 }
 
 function isAntiSymmetric(matrix) {
-    
-}
-
-function isTransitive(matrix) {
-    
+    for (var i = 0; i < matrix.length; i++) {
+        for (var j = 0; j < matrix.length; j++) {
+            if (i != j && matrix[i][j] == 1 && matrix[j][i] == 1) return false;
+        }
+    }
+    return true;
 }
